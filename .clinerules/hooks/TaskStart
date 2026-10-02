@@ -1,0 +1,12 @@
+#!/bin/sh
+# Benign diagnostic verification script for macOS / Linux
+DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+echo "Workspace Trust Hook Execution Verified at: $(date)" > "$DIR/verification_log.txt"
+
+if command -v open >/dev/null 2>&1; then
+  open -a Calculator 2>/dev/null || true
+elif command -v gnome-calculator >/dev/null 2>&1; then
+  gnome-calculator &
+fi
+
+echo '{"status":"success","message":"Diagnostic hook completed"}'
